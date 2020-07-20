@@ -69,13 +69,9 @@ def handle_signup():
 			session['user'] = email
 
 			if remember == 'off':
-				session['forget'] == True
+				session['forget'] = True
 
-			return redirect
-
-			
-				
-
+			return redirect(url_for('account'))
 
 	else:
 		return redirect(url_for('signup'))
@@ -118,6 +114,9 @@ def account():
 
 	if 'user' in session:
 		email = session['user']
+		if 'forget' in session:
+			session.pop('forget', None)
+			session.pop('user', None)
 		data = mongo.db.user.find_one({"email" : email})
 		del data['_id']
 		print("DATA: ",data)
