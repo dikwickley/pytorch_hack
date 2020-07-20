@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Account</title>
+</head>
+<script type="text/javascript">
+	
+	var user = JSON.parse('{{ data |  safe }}')  
+
+	
+</script>
+<body>
+
+	<h1 id='welcome'></h1>
+	<h4 id='email'></h4>
+	<h4 id='password'></h4>
+
+	<br>
+	<a href="{{ url_for('main') }}"><button>Home</button></a>
+	<a href="{{ url_for('logout') }}"><button>Logout</button></a>
+
+</body>
+<script type="text/javascript">
+	
+	document.getElementById('welcome').innerHTML = 'Welcome ' + user.name;
+	document.getElementById('email').innerHTML = 'email: ' + user.email;
+	document.getElementById('password').innerHTML = 'password: ' + user.password;
+</script>
+</html>
