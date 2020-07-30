@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Sign up</title>
-</head>
-<body>
-	<h1>Sign Up</h1>
-	<a href="{{ url_for('main') }}"><button>Home</button></a><br>
-	<form autocomplete="off" action="{{ url_for('handle_signup') }}" method="post">
-		<input type="email" name="email" placeholder="email"  required="true"><br>
-		<input type="text" name="name" placeholder="name" required="true"><br>
-		<input type="password" name="password" placeholder="password" required="true"><br>
-		<label>Remember me?</label>
-		<input type="checkbox" name="remember"><br>
-		<input type="submit" name="submit" value="sign up!">
-	</form>
-	<p>Have an account? <a href="{{ url_for('login') }}">Login</a></p>
-
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+	<div style="background: url(https://cdn.hipwallpaper.com/i/63/92/N534Rj.jpg); filter: blur(8px); -webkit-filter: blur(6px); height: calc(100% + 12px); width: calc(100% + 12px); position: fixed; top: 0; left: 0; background-position: center;background-repeat: no-repeat; background-size: cover; margin: -6px">	
+	</div>
+		<form class="container-fluid col-md-6" autocomplete="off" action="{{ url_for('handle_signup') }}" method="post">
+			<fieldset class="content form-group">
+				<legend class="container-fluid text-center display-4 font-weight-normal text-light">Signup</legend>
+				<input autocomplete="off" style="background-color: transparent; border-bottom: 3px solid #FFF" class="form-control form-control-lg border-1 border-right-0 border-left-0 border-top-0" type="email" name="email" placeholder="email"  required="true"><br>
+				<input autocomplete="off" style="background-color: transparent; border-bottom: 3px solid #FFF" class="form-control form-control-lg border-1 border-right-0 border-left-0 border-top-0" type="text" name="name" placeholder="name" required="true"><br>
+				<input autocomplete="off" style="background-color: transparent; border-bottom: 3px solid #FFF" class="form-control form-control-lg border-1 border-right-0 border-left-0 border-top-0" type="password" name="password" placeholder="password" required="true"><br>
+			<label class="form-control-label text-light">Remember me?</label>
+			<input type="checkbox" name="remember"><br>
+			</fieldset>
+			<div class="container-fluid text-center">
+				<input class="btn btn-outline-info" type="submit" name="submit" value="sign up!">
+			</div>
+		</form>
+		<br>
+		<p class="container-fluid col-md-6 text-light">Have an account? <a href="{{ url_for('login') }}">Login</a></p>
+{% endblock content %}
