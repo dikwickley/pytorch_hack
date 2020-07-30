@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 {% block content %}
-	<div style="background: url(https://cdn.hipwallpaper.com/i/63/92/N534Rj.jpg); filter: blur(8px); -webkit-filter: blur(6px); height: 100%; width: 100%; position: absolute; top: 0; left: 0; background-position: center;background-repeat: no-repeat; background-size: cover; margin: 0">	
+	<div style="background: url(https://cdn.hipwallpaper.com/i/63/92/N534Rj.jpg); filter: blur(8px); -webkit-filter: blur(6px); height: calc(100% + 12px); width: calc(100% + 12px); position: fixed; top: 0; left: 0; background-position: center;background-repeat: no-repeat; background-size: cover; margin: -6px">	
 	</div>
 		<form class="container-fluid col-md-6" autocomplete="off" action="{{ url_for('handle_login') }}" method="post">
 			<fieldset class="content form-group">
 				<legend class="container-fluid text-center display-4 font-weight-normal text-light">Login</legend>
-				<input autocomplete="off" style="background-color: transparent; border-bottom: 3px solid #FFF" class="form-control form-control-lg border-1 border-right-0 border-left-0 border-top-0" type="email" name="email" placeholder="email"  required="true"><br>
+				<input autocomplete="off" style="background-color: transparent; border-bottom: 3px solid #FFF;" class="form-control form-control-lg border-1 border-right-0 border-left-0 border-top-0" type="email" name="email" placeholder="email"  required="true"><br>
 				<input autocomplete="off" style="background-color: transparent; border-bottom: 3px solid #FFF" class="form-control form-control-lg border-1 border-right-0 border-left-0 border-top-0" type="password" name="password" placeholder="password" required="true"><br>
 			</fieldset>
 			<div class="container-fluid text-center">
-				<input class="btn btn-outline-info" type="submit" name="submit" value="Login">
+				<input class="btn btn-outline-success" type="submit" name="submit" value="Login">
 			</div>
 		</form>
 		<br>
