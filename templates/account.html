@@ -18,18 +18,19 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium voluptates, natus assumenda sed sapiente! Optio consectetur excepturi, suscipit autem vero totam sequi, nemo repellat, et hic provident perspiciatis dolore dolor.</p>
 				<br>
 				<!-- all the categories -->
-				<div>
-					<input type="radio" id="Category1" name="Category" value="Category1">
-					<label for="Category1">Category1</label><br>
-					
-					<input type="radio" id="Category2" name="Category" value="Category2">
-					<label for="Category2">Category2</label><br>
+				<div class="text-center">
+					<button id='category' onclick="showList(this.id)">Objects</button>
+					<button id='instrument' onclick="showList(this.id)">Intruments</button>	
+				</div>
+				
 
-					<input type="radio" id="Category3" name="Category" value="Category3">
-					<label for="Category3">Category3</label><br>
+				<div id='categoryList' class="my-3" style="height: 200px; overflow: auto">
+				</div>
 
-					
-					
+				<div id='instrumentList' class="my-3" style="height: 200px; overflow: auto">
+					<ul id="instrumentListDiv"> 
+						
+					</ul>
 				</div>
 
 			</div>
@@ -56,15 +57,51 @@
 
 	document.getElementById('trainedDiv').style.display = 'none'
 	document.getElementById('untrainedDiv').style.display = 'none'
+	document.getElementById('categoryList').style.display = 'none'
+	document.getElementById('instrumentList').style.display = 'none'
 	var user = JSON.parse('{{ data |  safe }}')  
 	document.getElementById('welcome').innerHTML = 'Welcome ' + user.name;
 	
+	//Add the categories
+	var categories = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
+    'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
+    'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse',
+    'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack',
+    'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
+    'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove',
+    'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass',
+    'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich',
+    'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake',
+    'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard',
+    'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator',
+    'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier',
+    'toothbrush', 'instruments']
+
+    var instruments = ['Field_mounted_CF','Ball Value','Field Mounted_L','Diaphragm','Normally closed Ball value','Normally Closed Gate Value','Gate Value','Main Control Panel rear-Mounted SI','Main Control Panel front-Mounted SI','Globe value','Normally Closed Value','Field Mounted_DI','Rectangle','Two Value Gate way','Three Value Gate way','Main-control panelRear mounted_CF','MainControlPanel_DI']
+
+    categories.sort()
 	
+    for(var i=0; i < categories.length; i+=1){
+    	// var radio = '<input type="radio" id="'+categories[i]+'" name="Category" value="'+categories[i]+'">'
+    	// var label = '<label for="'+categories[i]+'">'+categories[i]+'</label><br>'
+    	$('#categoryList').append('<input type="radio" id="'+categories[i]+'" name="Category" value="'+categories[i]+'">')
+    	$('#categoryList').append('<label for="'+categories[i]+'" class="font-weight-bold">'+ categories[i][0].toUpperCase() + categories[i].slice(1, categories[i].length)+'</label><br>')
+    }
+
+    for(var i=0;i<instruments.length; i+=1){
+    	$('#instrumentListDiv').append('<li class="font-weight-bold">'+ instruments[i]+'</li>')
+    }
 
 	function showInterface(id){
 		document.getElementById('trainedDiv').style.display = 'none'
 		document.getElementById('untrainedDiv').style.display = 'none'
 		document.getElementById(id+'Div').style.display = 'block'
+	}
+
+	function showList(id){
+		document.getElementById('categoryList').style.display = 'none'
+		document.getElementById('instrumentList').style.display = 'none'
+		document.getElementById(id+'List').style.display = 'block'
 	}
 
 	function getResult(){
