@@ -1,12 +1,75 @@
 {% extends "layout.html" %}
 {% block content %}
 	<h1 id='welcome'></h1>
-	<h4 id='email'></h4>
-	<h4 id='password'></h4>
+	
+	<div class="container-fluid text-center my-4 py-3">
+		<button id="trained" class="btn bg-dark text-white font-weight-bold " onclick="showInterface(this.id)">Use Trained Model</button>
+		<button id="untrained" class="btn bg-dark text-white font-weight-bold " onclick="showInterface(this.id)">Train Your Own Model</button>	
+	</div>
+	
+
+	<div id="trainedDiv" class="container-fluid border my-4 mx-0 py-3">
+		<h4>Use A Trained Model</h4>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam ducimus aspernatur quibusdam, nihil asperiores. Id vel, nemo aliquam eius earum illo quas, quos dolores ad rem explicabo laborum quae consequuntur.</p>
+		<br>
+		<div class="container-fluid mx-0 border row">
+			<div class="col-6 border my-4 py-3">
+				<h4>Choose a Category</h4>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium voluptates, natus assumenda sed sapiente! Optio consectetur excepturi, suscipit autem vero totam sequi, nemo repellat, et hic provident perspiciatis dolore dolor.</p>
+				<br>
+				<!-- all the categories -->
+				<div>
+					<input type="radio" id="Category1" name="Category" value="Category1">
+					<label for="Category1">Category1</label><br>
+					
+					<input type="radio" id="Category2" name="Category" value="Category2">
+					<label for="Category2">Category2</label><br>
+
+					<input type="radio" id="Category3" name="Category" value="Category3">
+					<label for="Category3">Category3</label><br>
+
+					
+					
+				</div>
+
+			</div>
+			<div class="col-6 border my-4 py-3">
+				<h4>Upload your Image</h4>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat a eum aperiam illo quidem animi aliquam voluptate totam recusandae inventore amet eveniet, corporis molestias voluptatum qui sint, sit debitis libero.</p>
+				<br>
+				<input type="file" name="file">
+			</div>
+			
+			<div class="col-12 my-2 py-2 text-center">
+				<button class="btn bg-success text-white font-weight-bold" onclick="getResult()">Get Result</button>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div id="untrainedDiv" class="container-fluid border my-4">
+		<h4>Train Your Own Model</h4>
+	</div>
+
 <script type="text/javascript">
+
+	document.getElementById('trainedDiv').style.display = 'none'
+	document.getElementById('untrainedDiv').style.display = 'none'
 	var user = JSON.parse('{{ data |  safe }}')  
 	document.getElementById('welcome').innerHTML = 'Welcome ' + user.name;
-	document.getElementById('email').innerHTML = 'email: ' + user.email;
-	document.getElementById('password').innerHTML = 'password: ' + user.password;
+	
+	
+
+	function showInterface(id){
+		document.getElementById('trainedDiv').style.display = 'none'
+		document.getElementById('untrainedDiv').style.display = 'none'
+		document.getElementById(id+'Div').style.display = 'block'
+	}
+
+	function getResult(){
+		//Send data to server using ajax
+	}
+
 </script>
 {% endblock content %}
