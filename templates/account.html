@@ -2,8 +2,8 @@
 {% block content %}
 	<h1 id='welcome'></h1>
 	
-	<div class="container-fluid text-center my-4 py-3">
-		<button id="trained" class="btn bg-dark text-white font-weight-bold " onclick="showInterface(this.id)">Use Trained Model</button>
+	<div id="selection" class="container-fluid text-center my-4 py-3">
+		<button id="trained" class="btn bg-info text-white font-weight-bold " onclick="showInterface(this.id)">Use Trained Model</button>
 		<button id="untrained" class="btn bg-dark text-white font-weight-bold " onclick="showInterface(this.id)">Train Your Own Model</button>	
 	</div>
 	
@@ -55,7 +55,7 @@
 
 <script type="text/javascript">
 
-	document.getElementById('trainedDiv').style.display = 'none'
+	document.getElementById('trainedDiv').style.display = 'block'
 	document.getElementById('untrainedDiv').style.display = 'none'
 	document.getElementById('categoryList').style.display = 'none'
 	document.getElementById('instrumentList').style.display = 'none'
@@ -96,6 +96,17 @@
 		document.getElementById('trainedDiv').style.display = 'none'
 		document.getElementById('untrainedDiv').style.display = 'none'
 		document.getElementById(id+'Div').style.display = 'block'
+		const selectorButtons = document.querySelectorAll('#selection button');
+		for (var i = 0; i < selectorButtons.length; i++) {
+			let curr = selectorButtons[i];
+			if(curr.id == id) {
+				curr.classList.remove('bg-dark');
+				curr.classList.add('bg-info');
+			} else {
+				curr.classList.remove('bg-info');
+				curr.classList.add('bg-dark');
+			}
+		}
 	}
 
 	function showList(id){

@@ -129,6 +129,10 @@ def account():
 def logout():
 	session.pop('user', None)
 	return redirect(url_for('main'))
-	
+
+@app.route('/about')
+def about():
+	return render_template('about.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
