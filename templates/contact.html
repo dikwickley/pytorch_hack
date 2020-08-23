@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<style type="text/css" media="screen">
+	#form-container {
+		height: 100vh;
+		/*border-radius: 8px;*/
+	}
+	.bd-r {
+		border-radius: 8px;
+	}
+</style>
+{% endblock head %}
+{% block content %}
+<div id="form-container" class="bg-info d-flex flex-column justify-content-around align-items-center">
+	<div class="container">
+		<h3 class="text-light">
+			Feedback
+		</h3>
+		<p class="text-white">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis
+		</p>
+	</div>
+	<div class="bg-light bd-r container py-3">
+		<!-- <form action="" method="" accept-charset="utf-8"> -->
+			<!-- <fieldset> -->
+				<legend class="border-bottom mb-3">Submit Feedback</legend>
+				<div class="form-group">
+					<label class="form-control-label">
+						Feedback
+					</label>
+					<textarea type="" id="feedback" rows="6" cols="60" class="form-control" type="text" name="feedback">Enter Feedback here</textarea>	
+				</div>
+			<!-- </fieldset> -->
+			<a id="submit-button" class="my-2" href="mailto:sharma.dev4242@gmail.com?subject=Feedback!&body=Some text!">
+				<button class="btn btn-outline-success">Submit Feedback</button>
+			</a>
+		<!-- </form> -->
+	</div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript" async defer>
+	// feedback = document.querySelector('#feedback').value;
+	// const submitButton = document.querySelector('#submit-button');
+	// let feedback = document.querySelector('#feedback').value
+	// submitButton.setAttribute('href', `mailto:sharma.dev4242@gmail.com?subject=Feedback!&body=${feedback}`);
+	document.querySelector('#feedback').addEventListener('input', () => {
+		// console.log('body modified');
+		const feedback = document.querySelector('#feedback').value;
+		// console.log(encodeURI(feedback));
+		document.querySelector('#submit-button').setAttribute('href', 'mailto:sharma.dev4242@gmail.com?subject=Feedback!&body=' + String(encodeURI(feedback)));
+	});
+</script>
+{% endblock scripts %}

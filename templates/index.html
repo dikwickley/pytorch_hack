@@ -18,10 +18,10 @@
 		color: rgba(255,255,255, 1);
 	}
 	.desc-bg-black {
-		background-color: #8e0e0b;
+		background-color: rgba(0, 0, 0, 0.9);
 	}
 	.desc-bg-red {
-		background-color: rgba(0, 0, 0, 0.9);
+		background-color: #8e0e0b;
 	}
 </style>
 {% endblock head %}
@@ -64,9 +64,9 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
-<div id="about-product" style="margin-bottom: 48px">
+<div id="about-product">
 	<div class="container-fluid">
-		<div class="row desc-bg-red">
+		<div class="row desc-bg-black">
 			<div class="col-lg-4 col-md-6 col-12 container-fluid">
 				<img class="desc-img" src="../static/img/inspiration.png" alt="Inspiration Bulb">
 			</div>
@@ -79,7 +79,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="row desc-bg-black">
+		<div class="row desc-bg-red">
 			<div class="col-lg-6 col-md-6 col-12 container-fluid text-white p-4">
 				<h2 class="description-heading">
 					What it does?
@@ -92,7 +92,7 @@
 				<img class="mr-auto desc-img" src="../static/img/labelled-clock.png" alt="Labelled Clock">
 			</div>
 		</div>
-		<div class="row desc-bg-red">
+		<div class="row desc-bg-black">
 			<div class="col-lg-4 col-md-6 col-12 container-fluid">
 				<img class="desc-img" src="../static/img/future-goals.jpg" alt="Robot">
 			</div>
@@ -105,7 +105,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="row desc-bg-black">
+		<div class="row desc-bg-red">
 			<div class="col-lg-6 col-md-6 col-12 container-fluid text-white p-4">
 				<h2 class="description-heading">
 					Tech Stack
@@ -115,9 +115,7 @@
 				 	<li class="description-li">Python
 				 		<ul>
 				 			<li class="description-li">Pytorch</li>
-				 			<li class="description-li">Detectron</li>
-				 			<li class="description-li">Detecto</li>				 			
-				 			<li class="description-li">COCO Model</li>				 			
+				 			<li class="description-li">COCO Dataset</li>				 			
 				 		</ul>
 				 	</li>
 				 	<li class="description-li">Flask</li>
