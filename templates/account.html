@@ -13,52 +13,59 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam ducimus aspernatur quibusdam, nihil asperiores. Id vel, nemo aliquam eius earum illo quas, quos dolores ad rem explicabo laborum quae consequuntur.</p>
 		<br>
 		<div class="container-fluid mx-0 border row">
-			<div class="col-6 border my-4 py-3">
-				<h4>Choose a Category</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium voluptates, natus assumenda sed sapiente! Optio consectetur excepturi, suscipit autem vero totam sequi, nemo repellat, et hic provident perspiciatis dolore dolor.</p>
-				<br>
-				<!-- all the categories -->
-				<div class="text-center">
-					<button id='category' onclick="showList(this.id)">Objects</button>
-					<button id='instrument' onclick="showList(this.id)">Intruments</button>	
+			
+				<div class="col-6 border my-4 py-3">
+					<h4>Choose a Category</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium voluptates, natus assumenda sed sapiente! Optio consectetur excepturi, suscipit autem vero totam sequi, nemo repellat, et hic provident perspiciatis dolore dolor.</p>
+					<br>
+					<!-- all the categories -->
+					<div class="text-center">
+						<button id='category' onclick="showList(this.id)">Objects</button>
+						<button id='instrument' onclick="showList(this.id)">Intruments</button>	
+					</div>
+					
+			<form  method=post action="{{ url_for('pretrained') }}" enctype=multipart/form-data>
+
+					<div id='categoryList' class="my-3" style="height: 200px; overflow: auto">
+					</div>
+
+					<div id='instrumentList' class="my-3" style="height: 200px; overflow: auto">
+						<ul id="instrumentListDiv"> 
+							
+						</ul>
+					</div>
+
+				</div>
+				<div class="col-6 border my-4 py-3">
+					<h4>Upload your Image</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat a eum aperiam illo quidem animi aliquam voluptate totam recusandae inventore amet eveniet, corporis molestias voluptatum qui sint, sit debitis libero.</p>
+					<br>
+					<input type="file" id="uploadImage" name="file" onchange="PreviewImage();" />
+					<img id="uploadPreview" class="col-12 my-2"  />
 				</div>
 				
-
-				<div id='categoryList' class="my-3" style="height: 200px; overflow: auto">
+				<div class="col-12 my-2 py-2 text-center">
+					<button type="submit" class="btn bg-success text-white font-weight-bold" onclick="getResult()">Get Result</button>
 				</div>
+			</form>
 
-				<div id='instrumentList' class="my-3" style="height: 200px; overflow: auto">
-					<ul id="instrumentListDiv"> 
-						
-					</ul>
-				</div>
-
-			</div>
-			<div class="col-6 border my-4 py-3">
-				<h4>Upload your Image</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat a eum aperiam illo quidem animi aliquam voluptate totam recusandae inventore amet eveniet, corporis molestias voluptatum qui sint, sit debitis libero.</p>
-				<br>
-				<input type="file" name="file">
-			</div>
-			
-			<div class="col-12 my-2 py-2 text-center">
-				<button class="btn bg-success text-white font-weight-bold" onclick="getResult()">Get Result</button>
-			</div>
 
 		</div>
 	</div>
 
 
-	<div id="untrainedDiv" class="container-fluid border my-4 p-4">
-		<h4>Train Your Own Model</h4>
+	<div id="untrainedDiv" class="container-fluid border my-4 p-4 text-center" style="height: 80vh;">
+		<h4 >Train Your Own Model</h4>
 		
 			
 			<h1 class="text-center text-dark"> Upload Image here</h1><br>
 		<div class="custom-file container">	
-		<form class="container" method=post action="{{ url_for('annotation') }}" enctype=multipart/form-data>
-	      <input class="" type=file name=file>
+		<form class="container text-center" method=post action="{{ url_for('annotation') }}" enctype=multipart/form-data>
+	      <input class="" id="uploadImage2" onchange="PreviewImage2()" type=file name=file>
 	      <input type="email" name="email" id="email" style="display: none;">
-	      <input class="btn btn-success font-weight-bold text-white" type=submit value=Upload>
+	      <img id="uploadPreview2" class="col-6 my-2"  />
+	      <br>
+	      <input class="btn btn-success font-weight-bold text-white my-4" type=submit value=Upload>
 	    </form>
 
 		</div>
@@ -96,20 +103,24 @@
     'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier',
     'toothbrush', 'instruments']
 
-    var instruments = ['Field_mounted_CF','Ball Value','Field Mounted_L','Diaphragm','Normally closed Ball value','Normally Closed Gate Value','Gate Value','Main Control Panel rear-Mounted SI','Main Control Panel front-Mounted SI','Globe value','Normally Closed Value','Field Mounted_DI','Rectangle','Two Value Gate way','Three Value Gate way','Main-control panelRear mounted_CF','MainControlPanel_DI']
+    var instruments = ['All', 'Field_mounted_CF','Ball Value','Field Mounted_L','Diaphragm','Normally closed Ball value','Normally Closed Gate Value','Gate Value','Main Control Panel rear-Mounted SI','Main Control Panel front-Mounted SI','Globe value','Normally Closed Value','Field Mounted_DI','Rectangle','Two Value Gate way','Three Value Gate way','Main-control panelRear mounted_CF','MainControlPanel_DI']
 
     categories.sort()
 	
     for(var i=0; i < categories.length; i+=1){
     	// var radio = '<input type="radio" id="'+categories[i]+'" name="Category" value="'+categories[i]+'">'
     	// var label = '<label for="'+categories[i]+'">'+categories[i]+'</label><br>'
-    	$('#categoryList').append('<input type="radio" id="'+categories[i]+'" name="Category" value="'+categories[i]+'">')
-    	$('#categoryList').append('<label for="'+categories[i]+'" class="font-weight-bold">'+ categories[i][0].toUpperCase() + categories[i].slice(1, categories[i].length)+'</label><br>')
+    	$('#categoryList').append('<input type="radio" id="'+categories[i]+'" name="Category" value="'+categories[i]+'" required>')
+    	$('#categoryList').append('<label for="'+categories[i]+'" class="font-weight-bold">'+categories[i]+'</label><br>')
     }
 
     for(var i=0;i<instruments.length; i+=1){
-    	$('#instrumentListDiv').append('<li class="font-weight-bold">'+ instruments[i]+'</li>')
+    	
+
+    	$('#instrumentListDiv').append('<input type="radio" id="'+instruments[i]+'" name="Category" value="'+instruments[i]+'">')
+    	$('#instrumentListDiv').append('<label for="'+instruments[i]+'" class="font-weight-bold">'+instruments[i]+'</label><br>')
     }
+
 
 	function showInterface(id){
 		document.getElementById('trainedDiv').style.display = 'none'
@@ -134,9 +145,31 @@
 		document.getElementById(id+'List').style.display = 'block'
 	}
 
-	function getResult(){
-		//Send data to server using ajax
-	}
+	
+	var loadFile = function(event) {
+		var image = document.getElementById('output');
+		image.src = URL.createObjectURL(event.target.files[0]);
+	};
 
+	function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+    };
+
+    function PreviewImage2() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("uploadImage2").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview2").src = oFREvent.target.result;
+        };
+    };
+
+    document.getElementById('airplane').checked = true;
+    
 </script>
 {% endblock content %}

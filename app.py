@@ -135,6 +135,55 @@ def account():
 	else:
 		return redirect(url_for('main'))
 
+@app.route('/pretrained', methods=['POST', 'GET'])
+def pretrained():
+	if request.method == 'POST':
+		
+		email = session['user']
+		if 'file' not in request.files:
+			flash('No file part')
+			return redirect(request.url)
+
+		file = request.files['file']
+
+		if file.filename == '':
+			flash('No selected file')
+			return redirect(request.url)
+		else:
+			file.save(os.path.join('./static/pretrained_model/', email+'_' + file.filename))
+
+			orignal_file = './static/pretrained_model/'+ email+'_' + file.filename
+			category = request.form['Category']
+
+			instruments = ['Field_mounted_CF','Ball Value','Field Mounted_L','Diaphragm','Normally closed Ball value','Normally Closed Gate Value','Gate Value','Main Control Panel rear-Mounted SI','Main Control Panel front-Mounted SI','Globe value','Normally Closed Value','Field Mounted_DI','Rectangle','Two Value Gate way','Three Value Gate way','Main-control panelRear mounted_CF','MainControlPanel_DI']
+			
+
+
+			
+			if not os.path.exists('./static/pretrained_model/' + email +'/' ):
+			    os.mkdir('./static/pretrained_model/' + email +'/' )
+
+			filePath = './static/pretrained_model/' + email 
+
+			if category in instruments:
+				print("this was an instrument ", category)
+				#
+				#instrument
+			else:
+				print("this was an object ", category)
+				#pretrained_initial(orignal_file, Category)
+				#object function
+
+
+			#delete the orignal
+
+
+			return 'here are result'
+
+			#return render_template('annotation.html',res=json.dumps({'file': '../static/upload/'+file.filename, 'email': request.form['email']}))
+	else:
+		return redirect('account')
+
 
 @app.route('/annotation', methods=['POST', 'GET'])
 def annotation():
