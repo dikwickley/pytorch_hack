@@ -51,11 +51,11 @@
 
 	<div id="untrainedDiv" class="container-fluid border my-4">
 		<h4>Train Your Own Model</h4>
-		<div class="custom-file">
+		<div class="custom-file container">
 			
-			<h1 class="text-center text-dark"> Upload Image here</h1>
+			<h1 class="text-center text-dark"> Upload Image here</h1><br>
 
-		<form method=post action="annotation" enctype=multipart/form-data>
+		<form method=post action="{{ url_for('annotation') }}" enctype=multipart/form-data>
 	      <input class="custom-file-label" type=file name=file>
 	      <input type="email" name="email" id="email">
 	      <input type=submit value=Upload>
