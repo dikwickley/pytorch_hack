@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Annotation</title>
+</head>
+<style type="text/css" media="screen">
+#content {
+    /*max-height: 80vh;*/
+    height: 60vw;
+    max-height: 80vh;
+    overflow: scroll;
+}
+#zoom-controls {
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    padding: 4px 8px;
+}
+.tag-head {
+    font-size: 1.5rem;
+    color: light-gray;
+}
+
+.tag-content {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+    padding: 8px 10px;
+    margin-bottom: 4px;
+
+}
+
+.muted-text {
+    font-size: 0.75rem;
+    color: rgba(120, 120, 120, 0.5);
+}
+</style>
+
+<body>
+    <div class="container-fluid m-3 p-2 row">
+        <div id="content" class="col-11 container">
+            <div id="zoom-controls">
+            <button id="zoom-out" class="btn btn-secondary">-</button>
+            <button id="zoom-in" class="btn btn-secondary">+</button>
+            </div>
+            <div>
+                <img id="hallstatt" src="">
+            </div>
+        </div>
+        <div class="col-6 p-2">
+            <div id="box-list" class="content-section bg-dark p-2">
+                <div class="tag-head"> <span class="text-light"> Annotations </span> </div>
+            </div>
+            <button class="btn btn-info my-3" onclick="sendToServer()">Send To Server</button>
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.0.5/dist/annotorious.min.js"></script>
+<script>
+var res = JSON.parse('{{ res | safe }}');
+console.log(res)
+
+// var allAnnotations = []
+
+document.getElementById('hallstatt').src = res.file;
+
+const boxList = document.getElementById('box-list');
+
+var anno;
+
+window.onload = () => {
+
+    document.querySelector('#zoom-in').addEventListener('click', () => {
+        document.getElementById('hallstatt').height *= 1.25;
+    });
+    document.querySelector('#zoom-out').addEventListener('click', () => {
+        document.getElementById('hallstatt').height *= 0.8;
+    });
+
+    anno = Annotorious.init({
+        image: 'hallstatt' // image element or ID
+    });
+
+    function renderAnno() {
+    boxList.innerHTML = `<div class="tag-head"> <span class="text-light"> Annotations </span> </div>`;
+        currentAnnotations = anno.getAnnotations();
+        for (let i = 0; i < currentAnnotations.length; ++i) {
+            let annotationEl = currentAnnotations[i];
+            console.log(annotationEl.body[0].value);
+            boxList.innerHTML += `<div class="tag-content bg-light mx-1 my-1"><div class="muted-text"> Comment ${i + 1}</div>${annotationEl.body[0].value}</div>`;
+        }
+    }
+
+    // Add event handlers using .on  
+    anno.on('createAnnotation', function(annotation) {
+        // Do something
+        // allAnnotations.push(annotation);
+        renderAnno();
+    });
+
+    anno.on('deleteAnnotation', function(annotation) {
+        renderAnno();     
+    });
+
+    anno.on('updateAnnotation', function(annotation, previous) {
+        renderAnno();     
+    });
+
+}
+
+// createAnnotation
+// deleteAnnotation
+// mouseEnterAnnotation
+// mouseLeaveAnnotation
+// selectAnnotation
+// updateAnnotation
+
+//     anno.on('updateAnnotation', function(annotation, previous) {
+//         // if (annotation !== previous)
+//             // {
+//                     boxList.innerHTML = `<div class="tag-head> Annotations </div>`;
+//                     for (let i = 0; i < annotation.length; ++i) {
+//                         let annotationEl = annotation[i];
+//                         console.log(annotationEl.body[0].value);
+//                         boxList.innerHTML += `<div class="tag-content"><div class="muted-text"> Comment ${i + 1}</div>${annotationEl.body[0].value}</div>`;
+//                     }
+//             // }
+//     });
+
+//    anno.on('deleteAnnotation', function(annotation) { 
+//  allAnnotations.push(annotation);
+//  boxList.innerHTML = ''
+//  currentAnnotations = anno.getAnnotations();
+//      for(let i = 0; i < currentAnnotations.length; ++i) {
+//    let annotationEl = currentAnnotations[i];
+//      console.log(annotationEl.body[0].value);
+//    boxList.innerHTML += `<div> ${annotationEl.body[0].value} </div>`;  
+//      }
+// });
+
+//   function renderBoxList() {
+//    boxList.innerHTML = ''
+//    console.log(annotationEl.body[0].value);
+//    for(let i = 0; i < allAnnotation.length; ++i) {
+// annotationEl = allAnnotation[i]
+// boxList.innerHTML += ```<div>${annotationEl.body[0].value}</div>```; 
+//    }
+//   }
+
+const sendToServer = () => {
+    console.log('Send To server')
+    console.log(anno.getAnnotations())
+
+    $.ajax({
+        url: "{{ url_for('processData') }}",
+        data: { 'data': anno.getAnnotations() },
+        method: 'post',
+        success: function(result) {
+            console.log(result)
+            alert('Data Saved to Cloud!')
+        }
+    });
+}
+</script>
+
+</html>
