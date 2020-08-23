@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+	{% extends "layout.html" %}
 {% block content %}
 	<h1 id='welcome'></h1>
 	
@@ -51,6 +51,18 @@
 
 	<div id="untrainedDiv" class="container-fluid border my-4">
 		<h4>Train Your Own Model</h4>
+		<div class="custom-file">
+			
+			<h1 class="text-center text-dark"> Upload Image here</h1>
+
+		<form method=post action="annotation" enctype=multipart/form-data>
+	      <input class="custom-file-label" type=file name=file>
+	      <input type="email" name="email" id="email">
+	      <input type=submit value=Upload>
+	    </form>
+
+		</div>
+			
 	</div>
 
 <script type="text/javascript">
@@ -61,7 +73,14 @@
 	document.getElementById('instrumentList').style.display = 'none'
 	var user = JSON.parse('{{ data |  safe }}')  
 	document.getElementById('welcome').innerHTML = 'Welcome ' + user.name;
+	document.getElementById('email').value = user.email
+
 	
+	$(".custom-file-input").on("change", function() {
+	  var fileName = $(this).val().split("\\").pop();
+	  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+	});
+
 	//Add the categories
 	var categories = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
     'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
