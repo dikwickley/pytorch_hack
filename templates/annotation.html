@@ -8,10 +8,14 @@
     <title>Annotation</title>
 </head>
 <style type="text/css" media="screen">
+
+*{
+    /*border: 1px dotted green;*/
+}
+
 #content {
     /*max-height: 80vh;*/
-    height: 60vw;
-    max-height: 80vh;
+
     overflow: scroll;
 }
 #zoom-controls {
@@ -41,23 +45,53 @@
 </style>
 
 <body>
-    <div class="container-fluid m-3 p-2 row">
-        <div id="content" class="col-11 container">
-            <div id="zoom-controls">
-            <button id="zoom-out" class="btn btn-secondary">-</button>
-            <button id="zoom-in" class="btn btn-secondary">+</button>
-            </div>
-            <div>
-                <img id="hallstatt" src="">
-            </div>
+    <h1 class="container text-center display-4 text-dark my-4">
+        Annotate Here
+        
+    </h1>
+    <div class="container border p-2">
+        <h3>Instructions:</h3>
+            <ol>
+                <li>Use mouse pointer to draw boxes over objects</li>
+                <li>Click and drag over image to create the box</li>
+                <li>Add the image label in the <b>comment</b></li>
+                <li>To edit, select or resize, select the annotation from the list on right side.</li>
+                <li>To edit label, choose the annotation from the image and edit the comment</li>
+                <li>Use the zoom controls to resize the image to make better selections</li>
+                <li>After annotating, click on send button</li>
+            </ol>            
         </div>
-        <div class="col-6 p-2">
+     <div class="container px-5 col-12 py-2 mx-4">
+            <p> Zoom Controls</p>
+                <button id="zoom-out" onclick="zoomIn()" class="btn btn-secondary">-</button>
+                <button id="zoom-in" onclick="zoomOut()"class="btn btn-secondary">+</button>
+    </div>
+    <div class="container-fluid m-3 p-2 row">
+
+        
+
+        <div id="content" class="col-8 container p-2">
+            <div >
+                <img id="hallstatt" src="" height="100%" width="100%">
+            </div>
+            
+        </div>
+
+        
+
+        <div class="col-4 p-4">
             <div id="box-list" class="content-section bg-dark p-2">
                 <div class="tag-head"> <span class="text-light"> Annotations </span> </div>
             </div>
-            <button class="btn btn-info my-3" onclick="sendToServer()">Send To Server</button>
+            <button class="btn btn-success col-12 my-3" onclick="sendToServer()">Send</button>
         </div>
+
+
+        
+
     </div>
+
+   
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@recogito/annotorious@2.0.5/dist/annotorious.min.js"></script>
@@ -73,14 +107,21 @@ const boxList = document.getElementById('box-list');
 
 var anno;
 
+function zoomOut(){
+    console.log('zoom in')
+    document.getElementById('hallstatt').height += document.getElementById('hallstatt').height*0.1
+    document.getElementById('hallstatt').width += document.getElementById('hallstatt').width*0.1
+}
+
+function zoomIn(){
+    console.log('zoom in')
+    document.getElementById('hallstatt')
+    document.getElementById('hallstatt').height -= document.getElementById('hallstatt').height*0.1
+    document.getElementById('hallstatt').width -= document.getElementById('hallstatt').width*0.1
+}
+
 window.onload = () => {
 
-    document.querySelector('#zoom-in').addEventListener('click', () => {
-        document.getElementById('hallstatt').height *= 1.25;
-    });
-    document.querySelector('#zoom-out').addEventListener('click', () => {
-        document.getElementById('hallstatt').height *= 0.8;
-    });
 
     anno = Annotorious.init({
         image: 'hallstatt' // image element or ID
@@ -113,44 +154,6 @@ window.onload = () => {
 
 }
 
-// createAnnotation
-// deleteAnnotation
-// mouseEnterAnnotation
-// mouseLeaveAnnotation
-// selectAnnotation
-// updateAnnotation
-
-//     anno.on('updateAnnotation', function(annotation, previous) {
-//         // if (annotation !== previous)
-//             // {
-//                     boxList.innerHTML = `<div class="tag-head> Annotations </div>`;
-//                     for (let i = 0; i < annotation.length; ++i) {
-//                         let annotationEl = annotation[i];
-//                         console.log(annotationEl.body[0].value);
-//                         boxList.innerHTML += `<div class="tag-content"><div class="muted-text"> Comment ${i + 1}</div>${annotationEl.body[0].value}</div>`;
-//                     }
-//             // }
-//     });
-
-//    anno.on('deleteAnnotation', function(annotation) { 
-//  allAnnotations.push(annotation);
-//  boxList.innerHTML = ''
-//  currentAnnotations = anno.getAnnotations();
-//      for(let i = 0; i < currentAnnotations.length; ++i) {
-//    let annotationEl = currentAnnotations[i];
-//      console.log(annotationEl.body[0].value);
-//    boxList.innerHTML += `<div> ${annotationEl.body[0].value} </div>`;  
-//      }
-// });
-
-//   function renderBoxList() {
-//    boxList.innerHTML = ''
-//    console.log(annotationEl.body[0].value);
-//    for(let i = 0; i < allAnnotation.length; ++i) {
-// annotationEl = allAnnotation[i]
-// boxList.innerHTML += ```<div>${annotationEl.body[0].value}</div>```; 
-//    }
-//   }
 
 const sendToServer = () => {
     console.log('Send To server')
@@ -163,6 +166,9 @@ const sendToServer = () => {
         success: function(result) {
             console.log(result)
             alert('Data Saved to Cloud!')
+            if(result == 'success'){
+                //redirect to some page
+            }
         }
     });
 }

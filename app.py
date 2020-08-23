@@ -181,7 +181,8 @@ def processData():
 		with open('./static/user/'+email+'.csv', 'w+', newline='') as file:
 			writer = csv.writer(file)
 			writer.writerows(csv_data)
-		return 'success on csv'
+			
+		return 'success'
 
 
 

@@ -49,16 +49,16 @@
 	</div>
 
 
-	<div id="untrainedDiv" class="container-fluid border my-4">
+	<div id="untrainedDiv" class="container-fluid border my-4 p-4">
 		<h4>Train Your Own Model</h4>
-		<div class="custom-file container">
+		
 			
 			<h1 class="text-center text-dark"> Upload Image here</h1><br>
-
-		<form method=post action="{{ url_for('annotation') }}" enctype=multipart/form-data>
-	      <input class="custom-file-label" type=file name=file>
-	      <input type="email" name="email" id="email">
-	      <input type=submit value=Upload>
+		<div class="custom-file container">	
+		<form class="container" method=post action="{{ url_for('annotation') }}" enctype=multipart/form-data>
+	      <input class="" type=file name=file>
+	      <input type="email" name="email" id="email" style="display: none;">
+	      <input class="btn btn-success font-weight-bold text-white" type=submit value=Upload>
 	    </form>
 
 		</div>
