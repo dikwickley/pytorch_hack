@@ -65,7 +65,11 @@
             <p> Zoom Controls</p>
                 <button id="zoom-out" onclick="zoomIn()" class="btn btn-secondary">-</button>
                 <button id="zoom-in" onclick="zoomOut()"class="btn btn-secondary">+</button>
+            <p> Image Next/ Prev</p>
+                <button id="previous" onclick="previous()" class="btn btn-warning"><--</button>
+                <button id="next" onclick="next()"class="btn btn-warning">--></button>
     </div>
+
     <div class="container-fluid m-3 p-2 row">
 
         
@@ -101,11 +105,26 @@ console.log(res)
 
 // var allAnnotations = []
 
-document.getElementById('hallstatt').src = res.file;
-
+document.getElementById('hallstatt').src = res.file[0];
+var imageCounter = 0
 const boxList = document.getElementById('box-list');
 
 var anno;
+
+function next(){
+    if(imageCounter +1 < res.file.length){
+           document.getElementById('hallstatt').src = res.file[imageCounter+1]
+           imageCounter += 1       
+    }
+ 
+}
+
+function previous(){
+    if(imageCounter -1 >= 0){
+        document.getElementById('hallstatt').src = res.file[imageCounter - 1]
+        imageCounter -= 1
+    }
+}
 
 function zoomOut(){
     console.log('zoom in')
@@ -130,6 +149,7 @@ window.onload = () => {
     function renderAnno() {
     boxList.innerHTML = `<div class="tag-head"> <span class="text-light"> Annotations </span> </div>`;
         currentAnnotations = anno.getAnnotations();
+        console.log(currentAnnotations)
         for (let i = 0; i < currentAnnotations.length; ++i) {
             let annotationEl = currentAnnotations[i];
             console.log(annotationEl.body[0].value);
