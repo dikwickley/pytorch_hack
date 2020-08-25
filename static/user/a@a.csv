@@ -1,2 +1,6 @@
-filename,width,height,class,xmin,ymin,xmax,ymax
-5114328-avengers-wallpaper-hd.jpg,1920,1080,hawk,217.64244079589844,350.0542297363281,206.4422149658203,354.5420837402344
+filename,file_size,file_attributes,region_count,region_id,region_shape_attributes,region_attributes
+5114328-avengers-wallpaper-hd.jpg,228760,"{}",4,0,"{""name"":""rect"",""x"":142,""y"":408,""width"":304,""height"":295}","{}"
+5114328-avengers-wallpaper-hd.jpg,228760,"{}",4,1,"{""name"":""rect"",""x"":909,""y"":402,""width"":291,""height"":308}","{""heroes"":undefined}"
+5114328-avengers-wallpaper-hd.jpg,228760,"{}",4,2,"{""name"":""rect"",""x"":478,""y"":387,""width"":183,""height"":302}","{""heroes"":undefined}"
+5114328-avengers-wallpaper-hd.jpg,228760,"{}",4,3,"{""name"":""rect"",""x"":1479,""y"":411,""width"":221,""height"":264}","{""heroes"":undefined}"
+SAVE_20200106_130501.jpg,7505447,"{}",1,0,"{""name"":""rect"",""x"":508,""y"":483,""width"":1205,""height"":1484}","{""heroes"":undefined,""guy"":""aniket""}"
