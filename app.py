@@ -135,6 +135,27 @@ def account():
 	else:
 		return redirect(url_for('main'))
 
+
+@app.route('/files', methods=['POST', 'GET'])
+def files():
+
+	if request.method == 'POST':
+		uploaded_files = request.files.getlist("file[]")
+		email = session['user']
+		print(uploaded_files)
+		allFileNames = []
+		if not os.path.exists('./static/untrained_model/' + email +'/' ):
+			os.mkdir('./static/untrained_model/' + email +'/' )
+			os.mkdir('./static/untrained_model/' + email +'/image/' )
+
+		for file in uploaded_files:
+			file.save(os.path.join('./static/untrained_model/' + email +'/image/' , file.filename))
+			allFileNames.append('./static/untrained_model/'+email+'/image/'+file.filename)
+
+		return render_template('annotation.html',res=json.dumps({'file': allFileNames, 'email': email}))
+	else:
+		return "get method"
+
 @app.route('/pretrained', methods=['POST', 'GET'])
 def pretrained():
 	if request.method == 'POST':
@@ -187,26 +208,56 @@ def pretrained():
 
 @app.route('/annotation', methods=['POST', 'GET'])
 def annotation():
+
 	if request.method == 'POST':
-		if 'file' not in request.files:
-			flash('No file part')
-			return redirect(request.url)
+		uploaded_files = request.files.getlist("file[]")
+		email = session['user']
+		print(uploaded_files)
 
-		file = request.files['file']
+		if not os.path.exists('./static/untrained_model/' + email +'/' ):
+			os.mkdir('./static/untrained_model/' + email +'/' )
+			os.mkdir('./static/untrained_model/' + email +'/image/' )
+		allFileNames = []
 
-		if file.filename == '':
-			flash('No selected file')
-			return redirect(request.url)
-		else:
-			file.save(os.path.join('./static/upload/', file.filename))
-			return render_template('annotation.html',res=json.dumps({'file': '../static/upload/'+file.filename, 'email': request.form['email']}))
+		for file in uploaded_files:
+			file.save(os.path.join('./static/untrained_model/' + email +'/image/' , file.filename))
+			allFileNames.append('./static/untrained_model/'+email+'/image/'+file.filename)
+
+			return render_template('via.html')
 	else:
 		return redirect('account')
+
+
+@app.route('/processViaData', methods=['GET', 'POST'])
+def processViaData():
+
+	if request.method == 'POST':
+		data = (tuple(request.form))
+		jsonData = json.loads(data[0])
+		
+		row_list = jsonData['data']
+		email = session['user']
+		csv_list = []
+		
+		#process data here
+		
+		
+		return 'success'
+
+	else:
+		return 'get route'
+
+@app.route('/untrained_category', methods=['POST', 'GET'])
+def untrained_category():
+	if request.method == 'POST':
+		#do something
+	else:
+		return render_template('untrained_cat.html')
 
 @app.route('/processData', methods=['POST','GET'])
 def processData():
 	if request.method == 'POST':
-		data = dict(request.form)
+		data = request.form
 		anno = {}
 		csv_data = [['filename','width','height','class','xmin','ymin','xmax','ymax']]
 		row = []

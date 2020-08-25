@@ -58,14 +58,15 @@
 		<h4 >Train Your Own Model</h4>
 		
 			
-			<h1 class="text-center text-dark"> Upload Image here</h1><br>
+		<h1 class="text-center text-dark"> Upload Image here</h1><br>
 		<div class="custom-file container">	
-		<form class="container text-center" method=post action="{{ url_for('annotation') }}" enctype=multipart/form-data>
-	      <input class="" id="uploadImage2" onchange="PreviewImage2()" type=file name=file>
+
+		<form class="container text-center" method="post" action="{{ url_for('files') }}" enctype="multipart/form-data">
+	      <input class="" id="uploadImage2" onchange="PreviewImage2();"  type=file name="file[]" multiple="">
 	      <input type="email" name="email" id="email" style="display: none;">
-	      <img id="uploadPreview2" class="col-6 my-2"  />
+	      <img id="uploadPreview2" class="col-6 my-2 gallery"  />
 	      <br>
-	      <input class="btn btn-success font-weight-bold text-white my-4" type=submit value=Upload>
+	      <input class="btn btn-success font-weight-bold text-white my-4" type="submit" value=Upload>
 	    </form>
 
 		</div>
@@ -168,6 +169,8 @@
             document.getElementById("uploadPreview2").src = oFREvent.target.result;
         };
     };
+
+
 
     document.getElementById('airplane').checked = true;
     
