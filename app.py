@@ -248,5 +248,9 @@ def about():
 def contact():
 	return render_template('contact.html')
 
+@app.route('/test', methods=['GET'])
+def test():
+	return render_template('test.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

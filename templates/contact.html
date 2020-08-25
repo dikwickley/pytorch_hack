@@ -27,6 +27,14 @@
 		<!-- <form action="" method="" accept-charset="utf-8"> -->
 			<!-- <fieldset> -->
 				<legend class="border-bottom mb-3">Submit Feedback</legend>
+
+				<div class="form-group">
+					<label class="form-control-label">
+						Subject
+					</label>
+					<input class="d-block" id="subject" type="text" name="" value="" placeholder="Subject">
+				</div>
+
 				<div class="form-group">
 					<label class="form-control-label">
 						Feedback
@@ -48,11 +56,27 @@
 	// const submitButton = document.querySelector('#submit-button');
 	// let feedback = document.querySelector('#feedback').value
 	// submitButton.setAttribute('href', `mailto:sharma.dev4242@gmail.com?subject=Feedback!&body=${feedback}`);
+	// console.log('body modified');
+	// console.log(encodeURI(feedback));
 	document.querySelector('#feedback').addEventListener('input', () => {
-		// console.log('body modified');
 		const feedback = document.querySelector('#feedback').value;
-		// console.log(encodeURI(feedback));
-		document.querySelector('#submit-button').setAttribute('href', 'mailto:sharma.dev4242@gmail.com?subject=Feedback!&body=' + String(encodeURI(feedback)));
+		href = document.querySelector('#submit-button').href;
+		let n = href.indexOf('body=');
+		let moddedHref = href.slice(0, n) + 'body=' + feedback;
+		console.log(moddedHref);
+		document.querySelector('#submit-button').setAttribute('href', moddedHref);// let moddedSub = feedback.slice(0, n) + String(encodeURI(feedback));
+		// document.querySelector('#submit-button').setAttribute('href', moddedSub);
+	});
+	document.querySelector('#subject').addEventListener('input', () => {
+		const subject = document.querySelector('#subject').value;
+		const href = document.querySelector('#submit-button').href;
+		n = href.indexOf('=');
+		m = href.indexOf('&');
+		beginpiece = href.slice(0, n);
+		endpiece = href.slice(m, href.length);
+		moddedHref = beginpiece + '=' + subject + endpiece;
+		console.log(moddedHref);
+		document.querySelector('#submit-button').setAttribute('href', moddedHref);
 	});
 </script>
 {% endblock scripts %}
