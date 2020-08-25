@@ -247,6 +247,13 @@ def processViaData():
 	else:
 		return 'get route'
 
+@app.route('/untrained_category', methods=['POST', 'GET'])
+def untrained_category():
+	if request.method == 'POST':
+		#do something
+	else:
+		return render_template('untrained_cat.html')
+
 @app.route('/processData', methods=['POST','GET'])
 def processData():
 	if request.method == 'POST':
